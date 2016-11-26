@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Xml.Serialization;
+using AppLib.WPF.Extensions;
 
 namespace OldGamesLauncher.DataFormat
 {
@@ -21,7 +22,7 @@ namespace OldGamesLauncher.DataFormat
             private set;
         }
 
-        public List<Emulator> Emulators
+        public ObservableCollection<Emulator> Emulators
         {
             get;
             private set;
@@ -29,7 +30,7 @@ namespace OldGamesLauncher.DataFormat
 
         public DataManager()
         {
-            Emulators = new List<Emulator>();
+            Emulators = new ObservableCollection<Emulator>();
             Games = new List<Game>();
             View = new ObservableCollection<Game>();
         }

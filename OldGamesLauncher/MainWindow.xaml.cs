@@ -24,5 +24,17 @@ namespace OldGamesLauncher
         {
             InitializeComponent();
         }
+
+        public static void OpenDialog(UserControl content)
+        {
+            var mw = App.Current.MainWindow as MainWindow;
+            mw.Dialog.Visibility = Visibility.Visible;
+            mw.DialogContent.Content = content;
+        }
+
+        private void DialogClose_Click(object sender, RoutedEventArgs e)
+        {
+            Dialog.Visibility = Visibility.Collapsed;
+        }
     }
 }

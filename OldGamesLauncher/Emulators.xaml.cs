@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OldGamesLauncher.DataFormat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,11 @@ namespace OldGamesLauncher
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             EmulatorList.ItemsSource = App.DataMan.Emulators;
+        }
+
+        private void BtnAddEmu_Click(object sender, RoutedEventArgs e)
+        {
+            App.DataMan.Emulators.Add(new Emulator());
         }
     }
 }

@@ -18,8 +18,10 @@
             Orientation="Horizontal">
             <applib:FaImageButton
                 Content="Add Emulator ..."
+                x:Name="BtnAddEmu"
+                Click="BtnAddEmu_Click"
                 Icon="fa_plus_circle"
-                IconSize="32"/>
+                IconSize="24"/>
         </StackPanel>
         <ItemsControl
             Grid.Row="1"
