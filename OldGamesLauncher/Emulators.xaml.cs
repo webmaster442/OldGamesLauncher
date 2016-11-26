@@ -27,12 +27,7 @@ namespace OldGamesLauncher
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            App.DataMan.Emulators.Add(new DataFormat.Emulator
-            {
-                PlatformName = "SNES",
-                Path = "c:\\"
-            });
-            EmulatorList.DataContext = App.DataMan.Emulators;
+            EmulatorList.ItemsSource = App.DataMan.Emulators;
         }
     }
 }

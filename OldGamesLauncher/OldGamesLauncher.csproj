@@ -110,6 +110,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\applib\AppLib.WPF\AppLib.WPF.csproj">
+      <Project>{faf19388-a6c0-46f9-a588-a46db392ace4}</Project>
+      <Name>AppLib.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
