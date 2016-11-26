@@ -16,6 +16,10 @@
         </Grid.RowDefinitions>
         <StackPanel
             Orientation="Horizontal">
+            <applib:FaImageButton
+                Content="Add Emulator ..."
+                Icon="fa_plus_circle"
+                IconSize="32"/>
         </StackPanel>
         <ItemsControl
             Grid.Row="1"
