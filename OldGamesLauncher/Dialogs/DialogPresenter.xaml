@@ -8,7 +8,11 @@
              d:DesignHeight="300"
              x:Name="Dp"
              Visibility="Collapsed"
-             d:DesignWidth="300" RenderTransformOrigin="0.5,0.5">
+             d:DesignWidth="300" 
+             RenderTransformOrigin="0.5,0.5" 
+             BorderBrush="Black"
+             Background="{StaticResource Backgound}"
+             BorderThickness="2">
     <UserControl.Resources>
         <Storyboard x:Key="Open">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Dp">
@@ -38,10 +42,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border
-            Background="#3498db"
+            Background="{StaticResource Title}"
             Grid.Row="0">
             <TextBlock
                 Foreground="White"
+                FontSize="15"
                 Text="{Binding ElementName=Dp, Path=Title}"/>
         </Border>
         <ContentPresenter
@@ -55,11 +60,15 @@
             <Button
                 Click="BtnOk_Click"
                 x:Name="BtnOk"
-                Content="{Binding ElementName=Dp, Path=BtnOkLabel}"/>
+                Content="{Binding ElementName=Dp, Path=BtnOkLabel}"
+                Margin="2"
+                MinWidth="80"/>
             <Button
                 Click="BtnCancel_Click"
                 x:Name="BtnCancel"
-                Content="Cancel"/>
+                Content="Cancel"
+                Margin="2"
+                MinWidth="80"/>
         </StackPanel>
     </Grid>
 </UserControl>

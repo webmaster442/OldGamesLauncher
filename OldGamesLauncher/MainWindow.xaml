@@ -67,8 +67,6 @@
         </Menu>
         <dialogs:DialogPresenter
             Margin="40"
-            x:Name="DialogContainer"
-            OkClick="DialogContainer_OkClick"
-            CancelClick="DialogContainer_CancelClick"/>
+            x:Name="DialogContainer"/>
     </Grid>
 </Window>

@@ -23,6 +23,15 @@ namespace OldGamesLauncher.DataFormat
         }
 
         /// <summary>
+        /// Resets selection on all emulators
+        /// </summary>
+        public void UnSelectPlatforms()
+        {
+            foreach (var emu in Emulators)
+                emu.IsChecked = false;
+        }
+
+        /// <summary>
         /// Emulator list view
         /// </summary>
         public ObservableCollection<Emulator> Emulators
@@ -133,16 +142,6 @@ namespace OldGamesLauncher.DataFormat
 
             View.Clear();
             foreach (var item in items) View.Add(item);
-        }
-
-        public IEnumerable<string> PlatformNames
-        {
-            get
-            {
-                return from i in Emulators
-                       orderby i.PlatformName ascending
-                       select i.PlatformName;
-            }
         }
 
         /// <summary>

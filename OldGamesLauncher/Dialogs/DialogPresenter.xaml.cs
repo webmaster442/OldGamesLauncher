@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
@@ -41,18 +42,20 @@ namespace OldGamesLauncher.Dialogs
             set { SetValue(DialogContentProperty, value); }
         }
 
-        public event RoutedEventHandler OkClick;
-
-        public event RoutedEventHandler CancelClick;
-
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (OkClick != null) OkClick(sender, e);
+            Close();
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (CancelClick != null) CancelClick(sender, e);
+            var dialog = DialogContent as IDialog;
+            if (dialog != null)
+            {
+                if (dialog.OkAction != null)
+                    dialog.OkAction();
+            } 
+            Close();
         }
 
         public void Open()
@@ -73,5 +76,10 @@ namespace OldGamesLauncher.Dialogs
         {
             Visibility = Visibility.Collapsed;
         }
+    }
+
+    public interface IDialog
+    {
+        Action OkAction { get; set; }
     }
 }

@@ -9,6 +9,9 @@
         <GradientStop Color="#bdc3c7" Offset="1"/>
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="Backgound" Color="#ecf0f1"/>
+    <SolidColorBrush x:Key="Title" Color="#3498db"/>
+
     <Style TargetType="app:MainWindow">
         <Setter Property="Background" Value="{StaticResource Fade}"/>
     </Style>

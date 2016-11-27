@@ -23,16 +23,6 @@ namespace OldGamesLauncher
             DialogContainer.Open();
         }
 
-        private void DialogContainer_OkClick(object sender, RoutedEventArgs e)
-        {
-            DialogContainer.Close();
-        }
-
-        private void DialogContainer_CancelClick(object sender, RoutedEventArgs e)
-        {
-            DialogContainer.Close();
-        }
-
         private void FileOpen_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog();
@@ -64,6 +54,10 @@ namespace OldGamesLauncher
         private void GamesAdd_Click(object sender, RoutedEventArgs e)
         {
             var add = new Dialogs.AddGame();
+            add.OkAction = new System.Action(() =>
+            {
+                App.DataMan.AddGames(add.Items);
+            });
             OpenDialog(add, "Add games...");
         }
 

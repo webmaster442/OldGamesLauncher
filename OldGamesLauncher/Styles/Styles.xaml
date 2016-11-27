@@ -10,7 +10,8 @@
             <Setter.Value>
                 <DataTemplate>
                     <CheckBox
-                        Content="{Binding}"
+                        Content="{Binding PlatformName}"
+                        IsChecked="{Binding IsChecked}"
                         Margin="1"/>
                 </DataTemplate>
             </Setter.Value>
@@ -22,7 +23,8 @@
             <Setter.Value>
                 <DataTemplate>
                     <RadioButton
-                        Content="{Binding}"
+                        Content="{Binding PlatformName}"
+                        IsChecked="{Binding IsChecked}"
                         Margin="1"/>
                 </DataTemplate>
             </Setter.Value>

@@ -9,6 +9,7 @@ namespace OldGamesLauncher.DataFormat
     {
         private string _platform;
         private string _path;
+        private bool _checked;
 
         public string PlatformName
         {
@@ -27,6 +28,16 @@ namespace OldGamesLauncher.DataFormat
             {
                 _path = value;
                 Notify("Path");
+            }
+        }
+
+        public bool IsChecked
+        {
+            get { return _checked; }
+            set
+            {
+                _checked = value;
+                Notify("IsChecked");
             }
         }
 

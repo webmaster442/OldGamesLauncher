@@ -27,10 +27,14 @@
             Grid.Column="1"
             Icon="fa_folder_o"
             IconSize="24"
-            Content="Select Files"/>
+            Content="Select Files"
+            x:Name="AddFiles"
+            HorizontalAlignment="Left"
+            Click="AddFiles_Click"/>
         <TextBlock
             Grid.Column="1"
             Grid.Row="1"
+            x:Name="ItemCounter"
             Text="0 File(s) selected"/>
         <TextBlock
             Grid.Row="2"
@@ -38,6 +42,8 @@
             Text="Platform:"/>
         <ItemsControl
             Grid.Row="2"
+            Margin="3"
+            x:Name="PlatformSelector"
             Style="{StaticResource PlatformSelector}"
             Grid.Column="1"/>
     </Grid>
