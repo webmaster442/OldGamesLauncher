@@ -41,6 +41,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Image
                             Source="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
@@ -67,17 +68,30 @@
                             Grid.Row="1"
                             VerticalAlignment="Center"
                             Grid.Column="2"
+                            Filter="Executable formats|*.exe;*.cmd;*.bat"
                             SelectedFile="{Binding Path, Mode=TwoWay}"/>
                         <Button
                             Grid.RowSpan="2"
                             ToolTip="Delete"
+                            x:Name="BtnDelete"
                             Margin="2"
-                            x:Name="BtnRemove"
                             CommandParameter="{Binding}" 
                             Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteCommand}"
                             Grid.Column="3">
                             <applib:ImageAwesome
                                 Icon="fa_remove"
+                                Width="24"
+                                Height="24"/>
+                        </Button>
+                        <Button
+                            Grid.RowSpan="2"
+                            ToolTip="Run Emulator"
+                            Margin="2"
+                            CommandParameter="{Binding}" 
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.RunCommand}"
+                            Grid.Column="4">
+                            <applib:ImageAwesome
+                                Icon="fa_play"
                                 Width="24"
                                 Height="24"/>
                         </Button>

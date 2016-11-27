@@ -1,19 +1,10 @@
-﻿using OldGamesLauncher.DataFormat;
+﻿using AppLib.WPF.Dialogs;
+using OldGamesLauncher.DataFormat;
 using OldGamesLauncher.Styles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OldGamesLauncher
 {
@@ -27,6 +18,7 @@ namespace OldGamesLauncher
             InitializeComponent();
             EmulatorList.DataContext = this;
             DeleteCommand = new RelayCommand(o => { Delete(o); }, o => true);
+            RunCommand = new RelayCommand(o => { Run(o); }, o => true);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -40,6 +32,7 @@ namespace OldGamesLauncher
         }
 
         public ICommand DeleteCommand { get; set; }
+        public ICommand RunCommand { get; set; }
 
         private void Delete(object sender)
         {
@@ -47,5 +40,17 @@ namespace OldGamesLauncher
             App.DataMan.Emulators.Remove(emu);
         }
 
+        private void Run(object o)
+        {
+            try
+            {
+                var emu = o as Emulator;
+                emu.RunGame();
+            }
+            catch (Exception ex)
+            {
+                ErrorDialog.Show(ex);
+            }
+        }
     }
 }

@@ -44,7 +44,12 @@ namespace OldGamesLauncher.DataFormat
         {
             Process p = new Process();
             p.StartInfo.FileName = Path;
-            p.StartInfo.Arguments = string.IsNullOrEmpty(rom) ? "" : rom;
+            if (!string.IsNullOrEmpty(rom))
+            {
+                if (!System.IO.File.Exists(rom))
+                    throw new Exception("Rom file doesn't exist");
+                p.StartInfo.Arguments = rom;
+            }
             p.Start();
         }
     }
