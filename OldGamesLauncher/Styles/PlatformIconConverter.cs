@@ -46,10 +46,11 @@ namespace OldGamesLauncher.Styles
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var str = value as string;
+            var size = (parameter == null) ? 128 :(int)parameter;
             if (string.IsNullOrEmpty(str)) return null;
             Border b = new Border();
-            b.Width = 32;
-            b.Height = 32;
+            b.Width = size;
+            b.Height = size;
             TextBlock t = new TextBlock();
             t.FontWeight = FontWeights.Bold;
             Viewbox strecher = new Viewbox();

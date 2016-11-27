@@ -25,15 +25,15 @@ namespace OldGamesLauncher
         public Games()
         {
             InitializeComponent();
-            LbView.ItemsSource = App.DataMan.View;
-            App.DataMan.UnSelectPlatforms();
-            PlatformFilter.ItemsSource = App.DataMan.Emulators;
-            App.DataMan.Search("", null);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _loaded = true;
+            LbView.ItemsSource = App.DataMan.View;
+            App.DataMan.UnSelectPlatforms();
+            PlatformFilter.ItemsSource = App.DataMan.Emulators;
+            App.DataMan.Search("", null);
         }
 
         private void ViewList_Checked(object sender, RoutedEventArgs e)
