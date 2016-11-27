@@ -22,6 +22,9 @@ namespace OldGamesLauncher.DataFormat
             private set;
         }
 
+        /// <summary>
+        /// Emulator list view
+        /// </summary>
         public ObservableCollection<Emulator> Emulators
         {
             get;
@@ -33,6 +36,12 @@ namespace OldGamesLauncher.DataFormat
             Emulators = new ObservableCollection<Emulator>();
             Games = new List<Game>();
             View = new ObservableCollection<Game>();
+            Emulators.CollectionChanged += Emulators_CollectionChanged;
+        }
+
+        private void Emulators_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Modified = true;
         }
 
         /// <summary>
@@ -55,6 +64,7 @@ namespace OldGamesLauncher.DataFormat
                 }
             }
             GC.Collect();
+            Modified = false;
         }
 
         /// <summary>
@@ -78,21 +88,27 @@ namespace OldGamesLauncher.DataFormat
                 }
             }
             GC.Collect();
+            Modified = false;
         }
 
-        public void Search(string name, params string[] CategorieSearch)
+        /// <summary>
+        /// Searches a game in a collection
+        /// </summary>
+        /// <param name="name">Part of the game name to search for</param>
+        /// <param name="PlatformFilter">filter platforms</param>
+        public void Search(string name, params string[] PlatformFilter)
         {
             IEnumerable<Game> items = null;
             var catsearch = false;
-            if (CategorieSearch != null)
+            if (PlatformFilter != null)
             {
-                if (CategorieSearch.Length > 0) catsearch = true;
+                if (PlatformFilter.Length > 0) catsearch = true;
             }
             if (string.IsNullOrEmpty(name) && !catsearch) items = Games;
             else if (string.IsNullOrEmpty(name) && catsearch)
             {
                 var q = from i in Games
-                        where CategorieSearch.Contains(i.Platform)
+                        where PlatformFilter.Contains(i.Platform)
                         orderby i.Name ascending
                         select i;
                 items = q;
@@ -109,7 +125,7 @@ namespace OldGamesLauncher.DataFormat
             {
                 var q = from i in Games
                         where i.Name.Contains(name) &&
-                        CategorieSearch.Contains(i.Platform)
+                        PlatformFilter.Contains(i.Platform)
                         orderby i.Name ascending
                         select i;
                 items = q;
@@ -129,14 +145,33 @@ namespace OldGamesLauncher.DataFormat
             }
         }
 
+        /// <summary>
+        /// Add a game to the collection
+        /// </summary>
+        /// <param name="g">game to add</param>
         public void AddGame(Game g)
         {
             Games.Add(g);
+            Modified = true;
         }
 
+        /// <summary>
+        /// Add a range of games to the collection
+        /// </summary>
+        /// <param name="games">games to add</param>
         public void AddGames(IEnumerable<Game> games)
         {
             Games.AddRange(games);
+            Modified = true;
+        }
+
+        /// <summary>
+        /// Gets information about the state of the collection since last save
+        /// </summary>
+        public bool Modified
+        {
+            get;
+            private set;
         }
     }
 }

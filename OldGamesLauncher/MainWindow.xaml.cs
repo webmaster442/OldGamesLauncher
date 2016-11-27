@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
+using OldGamesLauncher.Properties;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
 
 namespace OldGamesLauncher
 {
@@ -46,6 +36,7 @@ namespace OldGamesLauncher
             if (ofd.ShowDialog() == true)
             {
                 App.DataMan.Load(ofd.FileName);
+                Settings.Default.LastFile = ofd.FileName;
             }
         }
 
@@ -55,13 +46,35 @@ namespace OldGamesLauncher
             sfd.Filter = "Old Games Launcher databases|*.ogdb";
             if (sfd.ShowDialog() == true)
             {
-                App.DataMan.Load(sfd.FileName);
+                App.DataMan.Save(sfd.FileName);
+                Settings.Default.LastFile = sfd.FileName;
             }
         }
 
         private void FileExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(Settings.Default.LastFile))
+            {
+                App.DataMan.Load(Settings.Default.LastFile);
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.DataMan.Modified)
+            {
+                var msg = MessageBox.Show("Collection contains unsaved changes. Save now?",
+                                          "Unsaved Changes",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+                if (msg == MessageBoxResult.Yes) FileSave_Click(this, null);
+            }
+            Settings.Default.Save();
         }
     }
 }
