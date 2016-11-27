@@ -172,5 +172,13 @@ namespace OldGamesLauncher.DataFormat
             get;
             private set;
         }
+
+        public Emulator GetEmulator(Game g)
+        {
+            var q = from i in Emulators
+                    where i.PlatformName == g.Platform
+                    select i;
+            return q.FirstOrDefault();
+        }
     }
 }

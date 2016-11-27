@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using AppLib.WPF.Dialogs;
+using System.Linq;
+using OldGamesLauncher.DataFormat;
+using OldGamesLauncher.Styles;
 
 namespace OldGamesLauncher
 {
@@ -25,6 +19,8 @@ namespace OldGamesLauncher
         public Games()
         {
             InitializeComponent();
+            PlatformFilter.DataContext = this;
+            CheckedCommand = new RelayCommand(o => { Checked(o); }, o => true);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -53,9 +49,36 @@ namespace OldGamesLauncher
             App.DataMan.Search(TbSearch.Text, null); ;
         }
 
+        public ICommand CheckedCommand { get; set; }
+
+        private void Checked(object sender)
+        {
+            var selected = from i in App.DataMan.Emulators
+                           where i.IsChecked == true
+                           select i.PlatformName;
+            App.DataMan.Search(TbSearch.Text, selected.ToArray());
+        }
+
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             TbSearch.Text = "";
+        }
+
+        private void LbView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (LbView.SelectedItem == null) return;
+                var game = LbView.SelectedItem as Game;
+                var emu = App.DataMan.GetEmulator(game);
+                if (emu == null)
+                    throw new Exception("No emulator found for platform: " + game.Platform);
+                emu.RunGame(game.Path);
+            }
+            catch (Exception ex)
+            {
+                ErrorDialog.Show(ex);
+            }
         }
     }
 }

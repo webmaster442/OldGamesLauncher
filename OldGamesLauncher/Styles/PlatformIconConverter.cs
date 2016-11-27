@@ -14,11 +14,12 @@ namespace OldGamesLauncher.Styles
 {
     class PlatformIconConverter : IValueConverter
     {
-        static Color[] colors;
+        static Color[] _colors;
+        static Dictionary<string, ImageSource> _cache;
 
         static PlatformIconConverter()
         {
-            colors = new Color[]
+            _colors = new Color[]
             {
                 Color.FromRgb(26, 188, 156),
                 Color.FromRgb(22, 160, 133),
@@ -40,22 +41,15 @@ namespace OldGamesLauncher.Styles
                 Color.FromRgb(149, 165, 166),
                 Color.FromRgb(127, 140, 141)
             };
-            colors.OrderBy(i => i.R * i.G * i.B);
+            _colors.OrderBy(i => i.R * i.G * i.B);
+            _cache = new Dictionary<string, ImageSource>();
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var str = value as string;
-            var size = (parameter == null) ? 128 :(int)parameter;
+            var size = 128;
             if (string.IsNullOrEmpty(str)) return null;
-            Border b = new Border();
-            b.Width = size;
-            b.Height = size;
-            TextBlock t = new TextBlock();
-            t.FontWeight = FontWeights.Bold;
-            Viewbox strecher = new Viewbox();
-            strecher.Child = t;
-            b.Child = strecher;
 
             string tbtext = "";
             var words = str.Split(' ');
@@ -66,12 +60,28 @@ namespace OldGamesLauncher.Styles
             else
                 tbtext = words[0].Length > 2 ? words[0].Substring(0, 3) : words[0].Substring(0, words[0].Length);
 
-            t.Text = tbtext.ToUpper();
-            var index = Math.Abs(tbtext.ToUpper().GetHashCode()) % colors.Length;
-            b.Background = new SolidColorBrush(colors[index]);
-            t.Foreground = new SolidColorBrush(Colors.White);
-
-            return b.Render();
+            if (_cache.ContainsKey(tbtext))
+            {
+                return _cache[tbtext];
+            }
+            else
+            {
+                Border b = new Border();
+                b.Width = size;
+                b.Height = size;
+                TextBlock t = new TextBlock();
+                t.FontWeight = FontWeights.Bold;
+                Viewbox strecher = new Viewbox();
+                strecher.Child = t;
+                b.Child = strecher;
+                t.Text = tbtext.ToUpper();
+                var index = Math.Abs(tbtext.ToUpper().GetHashCode()) % _colors.Length;
+                b.Background = new SolidColorBrush(_colors[index]);
+                t.Foreground = new SolidColorBrush(Colors.White);
+                var img = b.Render();
+                _cache.Add(tbtext, img);
+                return img;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

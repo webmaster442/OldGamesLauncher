@@ -54,6 +54,7 @@
             Grid.ColumnSpan="6"
             Background="Transparent"
             Style="{StaticResource ListboxGrid}"
+            MouseDoubleClick="LbView_MouseDoubleClick"
             Grid.Row="1"/>
         <Expander
             Grid.Row="2"

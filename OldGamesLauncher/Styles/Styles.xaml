@@ -12,8 +12,17 @@
                     <CheckBox
                         Content="{Binding PlatformName}"
                         IsChecked="{Binding IsChecked}"
+                        CommandParameter="{Binding}" 
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.CheckedCommand}"
                         Margin="1"/>
                 </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
@@ -27,6 +36,13 @@
                         IsChecked="{Binding IsChecked}"
                         Margin="1"/>
                 </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
