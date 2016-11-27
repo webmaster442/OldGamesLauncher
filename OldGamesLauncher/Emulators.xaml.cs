@@ -1,4 +1,5 @@
 ﻿using OldGamesLauncher.DataFormat;
+using OldGamesLauncher.Styles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace OldGamesLauncher
         public Emulators()
         {
             InitializeComponent();
+            EmulatorList.DataContext = this;
+            DeleteCommand = new RelayCommand(o => { Delete(o); }, o => true);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -35,5 +38,14 @@ namespace OldGamesLauncher
         {
             App.DataMan.Emulators.Add(new Emulator());
         }
+
+        public ICommand DeleteCommand { get; set; }
+
+        private void Delete(object sender)
+        {
+            var emu = sender as Emulator;
+            App.DataMan.Emulators.Remove(emu);
+        }
+
     }
 }

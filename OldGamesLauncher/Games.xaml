@@ -87,6 +87,9 @@
                 <GroupBox
                     Grid.Column="1"
                     Header="Filter">
+                    <ItemsControl
+                        x:Name="PlatformFilter"
+                        Style="{StaticResource PlatformList}"/>
                 </GroupBox>
             </Grid>
         </Expander>

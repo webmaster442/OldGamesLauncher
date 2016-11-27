@@ -63,7 +63,7 @@ namespace OldGamesLauncher.Styles
             else if (words.Length > 1)
                 tbtext = string.Format("{0}{1}", words[0][0], words[1][0]);
             else
-                tbtext = words[0].Substring(0, 3);
+                tbtext = words[0].Length > 2 ? words[0].Substring(0, 3) : words[0].Substring(0, words[0].Length);
 
             t.Text = tbtext.ToUpper();
             var index = Math.Abs(tbtext.ToUpper().GetHashCode()) % colors.Length;

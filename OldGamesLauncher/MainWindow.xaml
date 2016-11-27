@@ -10,16 +10,48 @@
         Height="480"
         Width="850">
     <Grid>
-        <TabControl
+        <applib:AnimatedTabControl
             Grid.Row="1"
-            TabStripPlacement="Bottom">
+            TabStripPlacement="Top">
             <TabItem Header="Games">
                 <local:Games/>
             </TabItem>
             <TabItem Header="Emulators">
                 <local:Emulators/>
             </TabItem>
-        </TabControl>
+        </applib:AnimatedTabControl>
+        <Menu 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="120,4,0,0">
+            <MenuItem Header="File">
+                <MenuItem
+                    x:Name="FileOpen"
+                    Click="FileOpen_Click"
+                    Header="Open libary...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_folder_open_o"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    x:Name="FileSave"
+                    Click="FileSave_Click"
+                    Header="Save libary...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_save"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem
+                    x:Name="FileExit"
+                    Click="FileExit_Click"
+                    Header="Exit">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_sign_out"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
         <Grid
             x:Name="Dialog"
             Visibility="Collapsed"

@@ -5,6 +5,18 @@
 
     <local:PlatformIconConverter x:Key="PlatformIconConv"/>
 
+    <Style TargetType="ItemsControl" x:Key="PlatformList">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <CheckBox
+                        Content="{Binding}"
+                        Margin="1"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="ItemsControl" x:Key="EmulatorList">
         <Setter Property="Template">
             <Setter.Value>
@@ -33,6 +45,8 @@
                         <Image
                             Source="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
                             Grid.RowSpan="2"
+                            Width="48"
+                            Height="48"
                             Grid.Column="0"/>
                         <TextBlock
                             Grid.Row="0"
@@ -59,6 +73,8 @@
                             ToolTip="Delete"
                             Margin="2"
                             x:Name="BtnRemove"
+                            CommandParameter="{Binding}" 
+                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteCommand}"
                             Grid.Column="3">
                             <applib:ImageAwesome
                                 Icon="fa_remove"

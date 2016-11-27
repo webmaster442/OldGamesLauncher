@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace OldGamesLauncher
 {
@@ -35,6 +36,32 @@ namespace OldGamesLauncher
         private void DialogClose_Click(object sender, RoutedEventArgs e)
         {
             Dialog.Visibility = Visibility.Collapsed;
+        }
+
+        private void FileOpen_Click(object sender, RoutedEventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "Old Games Launcher databases|*.ogdb";
+            ofd.Multiselect = false;
+            if (ofd.ShowDialog() == true)
+            {
+                App.DataMan.Load(ofd.FileName);
+            }
+        }
+
+        private void FileSave_Click(object sender, RoutedEventArgs e)
+        {
+            var sfd = new SaveFileDialog();
+            sfd.Filter = "Old Games Launcher databases|*.ogdb";
+            if (sfd.ShowDialog() == true)
+            {
+                App.DataMan.Load(sfd.FileName);
+            }
+        }
+
+        private void FileExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -59,6 +59,7 @@
       <DependentUpon>Games.xaml</DependentUpon>
     </Compile>
     <Compile Include="Styles\PlatformIconConverter.cs" />
+    <Compile Include="Styles\RelayCommand.cs" />
     <Page Include="Emulators.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

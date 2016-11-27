@@ -31,6 +31,7 @@ namespace OldGamesLauncher
         {
             _loaded = true;
             LbView.ItemsSource = App.DataMan.View;
+            PlatformFilter.ItemsSource = App.DataMan.PlatformNames;
             App.DataMan.Search("", null);
         }
 
