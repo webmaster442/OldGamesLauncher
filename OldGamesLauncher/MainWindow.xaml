@@ -53,6 +53,16 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Games">
+                <MenuItem
+                    x:Name="GamesAdd"
+                    Click="GamesAdd_Click"
+                    Header="Add Games...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_plus"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <Grid
             x:Name="Dialog"

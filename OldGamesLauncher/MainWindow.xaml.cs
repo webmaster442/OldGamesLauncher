@@ -20,7 +20,7 @@ namespace OldGamesLauncher
         {
             var mw = App.Current.MainWindow as MainWindow;
             mw.Dialog.Visibility = Visibility.Visible;
-            mw.DialogContent.Content = content;
+            mw.DialogContent.Content = content;  
         }
 
         private void DialogClose_Click(object sender, RoutedEventArgs e)
@@ -54,6 +54,12 @@ namespace OldGamesLauncher
         private void FileExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void GamesAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var add = new Dialogs.AddGame();
+            OpenDialog(add);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

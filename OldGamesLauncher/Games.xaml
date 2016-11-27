@@ -52,6 +52,7 @@
         <ListBox
             x:Name="LbView"
             Grid.ColumnSpan="6"
+            Background="Transparent"
             Style="{StaticResource ListboxGrid}"
             Grid.Row="1"/>
         <Expander
