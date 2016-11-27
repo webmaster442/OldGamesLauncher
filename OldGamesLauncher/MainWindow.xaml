@@ -16,18 +16,33 @@
         <applib:AnimatedTabControl
             Grid.Row="1"
             TabStripPlacement="Top">
-            <TabItem Header="Games">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <applib:ImageAwesome Icon="fa_gamepad" Width="16"/>
+                        <TextBlock Text="Games"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <local:Games/>
             </TabItem>
-            <TabItem Header="Emulators">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <applib:ImageAwesome Icon="fa_cogs" Width="16"/>
+                        <TextBlock Text="Emulators"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <local:Emulators/>
             </TabItem>
         </applib:AnimatedTabControl>
         <Menu 
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Margin="120,4,0,0">
+            Margin="145,1,0,0">
             <MenuItem Header="File">
+                <MenuItem.Icon>
+                    <applib:ImageAwesome Icon="fa_file_o"/>
+                </MenuItem.Icon>
                 <MenuItem
                     x:Name="FileOpen"
                     Click="FileOpen_Click"
@@ -55,12 +70,58 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Games">
+                <MenuItem.Icon>
+                    <applib:ImageAwesome Icon="fa_database"/>
+                </MenuItem.Icon>
                 <MenuItem
                     x:Name="GamesAdd"
                     Click="GamesAdd_Click"
                     Header="Add Games...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_plus"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem
+                    Header="Delete selected">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_remove"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Header="Delete games without an emulator">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_remove"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Internet">
+                <MenuItem.Icon>
+                    <applib:ImageAwesome Icon="fa_internet_explorer"/>
+                </MenuItem.Icon>
+                <MenuItem
+                    Header="Search game on Google...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_google"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Header="Search game on DuckDuckGo...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_globe"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem
+                    Header="Visit Project Page...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_github"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Header="Download Emulators ...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_download"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

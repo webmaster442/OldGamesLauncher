@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace OldGamesLauncher.DataFormat
 {
@@ -31,6 +32,7 @@ namespace OldGamesLauncher.DataFormat
             }
         }
 
+        [XmlIgnore]
         public bool IsChecked
         {
             get { return _checked; }
