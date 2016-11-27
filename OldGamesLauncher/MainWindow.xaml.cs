@@ -16,16 +16,21 @@ namespace OldGamesLauncher
             InitializeComponent();
         }
 
-        public static void OpenDialog(UserControl content)
+        public void OpenDialog(UserControl ctrl, string title)
         {
-            var mw = App.Current.MainWindow as MainWindow;
-            mw.Dialog.Visibility = Visibility.Visible;
-            mw.DialogContent.Content = content;  
+            DialogContainer.DialogContent = ctrl;
+            DialogContainer.Title = title;
+            DialogContainer.Open();
         }
 
-        private void DialogClose_Click(object sender, RoutedEventArgs e)
+        private void DialogContainer_OkClick(object sender, RoutedEventArgs e)
         {
-            Dialog.Visibility = Visibility.Collapsed;
+            DialogContainer.Close();
+        }
+
+        private void DialogContainer_CancelClick(object sender, RoutedEventArgs e)
+        {
+            DialogContainer.Close();
         }
 
         private void FileOpen_Click(object sender, RoutedEventArgs e)
@@ -59,7 +64,7 @@ namespace OldGamesLauncher
         private void GamesAdd_Click(object sender, RoutedEventArgs e)
         {
             var add = new Dialogs.AddGame();
-            OpenDialog(add);
+            OpenDialog(add, "Add games...");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OldGamesLauncher"
+        xmlns:dialogs="clr-namespace:OldGamesLauncher.Dialogs"
         xmlns:applib="http://github.com/webmaster442/AppLib/WPF"
         mc:Ignorable="d"
         Title="Old Games Launcher"
@@ -64,38 +65,10 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <Grid
-            x:Name="Dialog"
-            Visibility="Collapsed"
-            Margin="40">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Border
-                Background="Blue">
-                <TextBlock
-                    Text="Title"
-                    Grid.Row="0"
-                    Grid.Column="0"/>
-            </Border>
-            <applib:FaImageButton
-                Grid.Row="0"
-                Grid.Column="1"
-                Icon="fa_close"
-                x:Name="DialogClose"
-                Click="DialogClose_Click"
-                IconSize="24"/>
-            <Border
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Background="Silver">
-                <ContentPresenter x:Name="DialogContent"/>
-            </Border>
-        </Grid>
+        <dialogs:DialogPresenter
+            Margin="40"
+            x:Name="DialogContainer"
+            OkClick="DialogContainer_OkClick"
+            CancelClick="DialogContainer_CancelClick"/>
     </Grid>
 </Window>
