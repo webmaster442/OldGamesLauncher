@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AppLib.WPF.Dialogs;
+using OldGamesLauncher.DataFormat;
+using OldGamesLauncher.Styles;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using AppLib.WPF.Dialogs;
-using System.Linq;
-using OldGamesLauncher.DataFormat;
-using OldGamesLauncher.Styles;
 
 namespace OldGamesLauncher
 {
