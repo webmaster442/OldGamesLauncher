@@ -15,6 +15,7 @@ namespace OldGamesLauncher
     public partial class Games : UserControl
     {
         private bool _loaded;
+        private int _sort;
 
         public Games()
         {
@@ -29,7 +30,7 @@ namespace OldGamesLauncher
             LbView.ItemsSource = App.DataMan.View;
             App.DataMan.UnSelectPlatforms();
             PlatformFilter.ItemsSource = App.DataMan.Emulators;
-            App.DataMan.Search("", null);
+            App.DataMan.Search("", true, null);
         }
 
         private void ViewList_Checked(object sender, RoutedEventArgs e)
@@ -44,19 +45,48 @@ namespace OldGamesLauncher
             LbView.Style = FindResource("ListboxGrid") as Style;
         }
 
-        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void BtnSort_Click(object sender, RoutedEventArgs e)
         {
-            App.DataMan.Search(TbSearch.Text, null); ;
+            if (_sort + 1 > 2) _sort = 0;
+            else _sort += 1;
+            switch (_sort)
+            {
+                case 0:
+                    BtnSort.Content = "Name";
+                    break;
+                case 1:
+                    BtnSort.Content = "Start count";
+                    break;
+                case 2:
+                    BtnSort.Content = "Last start date";
+                    break;
+            }
+            App.DataMan.OrderBy = _sort;
         }
 
-        public ICommand CheckedCommand { get; set; }
-
-        private void Checked(object sender)
+        private void Search()
         {
             var selected = from i in App.DataMan.Emulators
                            where i.IsChecked == true
                            select i.PlatformName;
-            App.DataMan.Search(TbSearch.Text, selected.ToArray());
+            App.DataMan.Search(TbSearch.Text, CbInvariant.IsChecked, selected.ToArray());
+        }
+
+        public ICommand CheckedCommand { get; set; }
+
+        private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Search();
+        }
+
+        private void Checked(object sender)
+        {
+            Search();
+        }
+
+        private void CbInvariant_Checked(object sender, RoutedEventArgs e)
+        {
+            Search();
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
@@ -73,7 +103,7 @@ namespace OldGamesLauncher
                 var emu = App.DataMan.GetEmulator(game);
                 if (emu == null)
                     throw new Exception("No emulator found for platform: " + game.Platform);
-                emu.RunGame(game.Path);
+                emu.RunGame(game);
             }
             catch (Exception ex)
             {

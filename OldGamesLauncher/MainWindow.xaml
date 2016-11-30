@@ -19,7 +19,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <applib:ImageAwesome Icon="fa_gamepad" Width="16"/>
+                        <applib:ImageAwesome Icon="fa_gamepad" Width="24" Height="24"/>
                         <TextBlock Text="Games"/>
                     </StackPanel>
                 </TabItem.Header>
@@ -28,7 +28,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <applib:ImageAwesome Icon="fa_cogs" Width="16"/>
+                        <applib:ImageAwesome Icon="fa_cogs" Width="24" Height="24"/>
                         <TextBlock Text="Emulators"/>
                     </StackPanel>
                 </TabItem.Header>
@@ -36,9 +36,9 @@
             </TabItem>
         </applib:AnimatedTabControl>
         <Menu 
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Margin="145,1,0,0">
+            Margin="0,1,0,0">
             <MenuItem Header="File">
                 <MenuItem.Icon>
                     <applib:ImageAwesome Icon="fa_file_o"/>
@@ -83,6 +83,7 @@
                 </MenuItem>
                 <Separator/>
                 <MenuItem
+                    
                     Header="Delete selected">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_remove"/>

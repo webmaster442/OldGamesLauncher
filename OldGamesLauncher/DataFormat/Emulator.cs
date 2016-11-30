@@ -47,22 +47,25 @@ namespace OldGamesLauncher.DataFormat
 
         private void Notify(string prop)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-        public void RunGame(string rom = null)
+        public void RunGame(Game g)
         {
             Process p = new Process();
+
+            if (string.IsNullOrEmpty(Path))
+                throw new Exception("Platform emulator path not set");
+
             p.StartInfo.FileName = Path;
-            if (!string.IsNullOrEmpty(rom))
+            if (!string.IsNullOrEmpty(g.Path))
             {
-                if (!System.IO.File.Exists(rom))
+                if (!System.IO.File.Exists(g.Path))
                     throw new Exception("Rom file doesn't exist");
-                p.StartInfo.Arguments = rom;
+                p.StartInfo.Arguments = g.Path;
             }
+            g.LastStartDate = DateTime.Now;
+            g.StartCount += 1;
             p.Start();
         }
     }

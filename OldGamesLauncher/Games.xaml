@@ -7,7 +7,7 @@
              xmlns:applib="http://github.com/webmaster442/AppLib/WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="500"
              Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +19,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
@@ -29,6 +31,7 @@
             Text="Display: "
             Margin="5,2"/>
         <RadioButton
+            Margin="2,0"
             Grid.Row="0"
             Grid.Column="1"
             x:Name="ViewGrid"
@@ -40,6 +43,7 @@
             </StackPanel>
         </RadioButton>
         <RadioButton
+            Margin="2,0"
             Grid.Row="0"
             Grid.Column="2"
             x:Name="ViewList"
@@ -50,17 +54,28 @@
             </StackPanel>
         </RadioButton>
         <TextBlock
+            Margin="10,0,10,0"
+            Grid.Row="0"
+            Grid.Column="3"
+            Text="Sort:"/>
+        <Button
             Grid.Row="0"
             Grid.Column="4"
+            x:Name="BtnSort"
+            Click="BtnSort_Click"
+            Content="Name"/>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="6"
             Text="Items:"
             Margin="10,0"/>
         <TextBlock
             Grid.Row="0"
-            Grid.Column="5"
+            Grid.Column="7"
             Text="{Binding ElementName=LbView, Path=Items.Count}"/>
         <ListBox
             x:Name="LbView"
-            Grid.ColumnSpan="6"
+            Grid.ColumnSpan="8"
             Background="Transparent"
             applib:ListBoxSelector.Enabled="True"
             Style="{StaticResource ListboxGrid}"
@@ -85,20 +100,35 @@
                 <GroupBox
                     Grid.Column="0"
                     Header="Search">
-                    <Grid>
+                    <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <TextBox
                             Grid.Column="0"
+                            Grid.Row="0"
                             x:Name="TbSearch"
                             TextChanged="TbSearch_TextChanged"/>
                         <Button
+                            Margin="3"
+                            Grid.Row="0"
                             Grid.Column="1"
                             x:Name="BtnClear"
                             Click="BtnClear_Click"
                             Content="Clear"/>
+                        <CheckBox
+                            x:Name="CbInvariant"
+                            Checked="CbInvariant_Checked"
+                            Unchecked="CbInvariant_Checked"
+                            Grid.Row="1"
+                            IsChecked="True"
+                            Grid.ColumnSpan="2"
+                            Content="Case invariant search"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox

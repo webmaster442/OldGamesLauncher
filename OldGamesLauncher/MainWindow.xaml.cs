@@ -79,6 +79,7 @@ namespace OldGamesLauncher
                                           MessageBoxImage.Question);
                 if (msg == MessageBoxResult.Yes) FileSave_Click(this, null);
             }
+            else App.DataMan.SaveOpenedFile();
             Settings.Default.Save();
         }
     }

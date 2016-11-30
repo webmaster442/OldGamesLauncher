@@ -12,6 +12,7 @@ namespace OldGamesLauncher.DataFormat
     public class DataManager
     {
         private readonly List<Game> Games;
+        private string _openedfile;
 
         /// <summary>
         /// Gets the View that can be binded to a list
@@ -44,6 +45,7 @@ namespace OldGamesLauncher.DataFormat
         {
             Emulators = new ObservableCollection<Emulator>();
             Games = new List<Game>();
+            OrderBy = 0;
             View = new ObservableCollection<Game>();
             Emulators.CollectionChanged += Emulators_CollectionChanged;
         }
@@ -74,6 +76,7 @@ namespace OldGamesLauncher.DataFormat
             }
             GC.Collect();
             Modified = false;
+            _openedfile = file;
         }
 
         /// <summary>
@@ -100,12 +103,27 @@ namespace OldGamesLauncher.DataFormat
             Modified = false;
         }
 
+        public void SaveOpenedFile()
+        {
+            if (!string.IsNullOrEmpty(_openedfile))
+            {
+                if (File.Exists(_openedfile))
+                    Save(_openedfile);
+            }
+        }
+
+        public int OrderBy
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Searches a game in a collection
         /// </summary>
         /// <param name="name">Part of the game name to search for</param>
         /// <param name="PlatformFilter">filter platforms</param>
-        public void Search(string name, params string[] PlatformFilter)
+        public void Search(string name, bool? invariantcase, string[] PlatformFilter)
         {
             IEnumerable<Game> items = null;
             var catsearch = false;
@@ -113,34 +131,48 @@ namespace OldGamesLauncher.DataFormat
             {
                 if (PlatformFilter.Length > 0) catsearch = true;
             }
-            if (string.IsNullOrEmpty(name) && !catsearch) items = Games;
+            if (string.IsNullOrEmpty(name) && !catsearch)
+            {
+                items = Games;
+            }
             else if (string.IsNullOrEmpty(name) && catsearch)
             {
                 var q = from i in Games
                         where PlatformFilter.Contains(i.Platform)
-                        orderby i.Name ascending
                         select i;
                 items = q;
             }
             else if (!string.IsNullOrEmpty(name) && !catsearch)
             {
                 var q = from i in Games
-                        where i.Name.Contains(name)
-                        orderby i.Name ascending
+                        where invariantcase == true ? i.Name.ToLower().Contains(name.ToLower()) : i.Name.Contains(name)
                         select i;
                 items = q;
             }
             else
             {
                 var q = from i in Games
-                        where i.Name.Contains(name) &&
+                        where invariantcase == true ? i.Name.ToLower().Contains(name.ToLower()) : i.Name.Contains(name) &&
                         PlatformFilter.Contains(i.Platform)
-                        orderby i.Name ascending
                         select i;
                 items = q;
             }
 
             View.Clear();
+
+            switch (OrderBy)
+            {
+                case 0:
+                    items.OrderBy(i => i.Name);
+                    break;
+                case 1:
+                    items.OrderBy(i => i.StartCount).ThenBy(i => i.Name);
+                    break;
+                case 2:
+                    items.OrderBy(i => i.LastStartDate).ThenBy(i => i.Name);
+                    break;
+            }
+
             foreach (var item in items) View.Add(item);
         }
 

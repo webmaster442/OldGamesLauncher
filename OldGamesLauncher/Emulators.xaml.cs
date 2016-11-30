@@ -45,7 +45,7 @@ namespace OldGamesLauncher
             try
             {
                 var emu = o as Emulator;
-                emu.RunGame();
+                emu.RunGame(null);
             }
             catch (Exception ex)
             {
