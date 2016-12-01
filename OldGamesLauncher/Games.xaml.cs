@@ -24,6 +24,26 @@ namespace OldGamesLauncher
             CheckedCommand = new RelayCommand(o => { Checked(o); }, o => true);
         }
 
+        public ICommand CheckedCommand { get; set; }
+
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem", typeof(Game), typeof(Games));
+
+        public static readonly DependencyProperty IsItemSelectedProperty =
+            DependencyProperty.Register("IsItemSelected", typeof(bool), typeof(Games), new PropertyMetadata(false));
+
+        public bool IsItemSelected
+        {
+            get { return (bool)GetValue(IsItemSelectedProperty); }
+            set { SetValue(IsItemSelectedProperty, value); }
+        }
+
+        public Game SelectedItem
+        {
+            get { return (Game)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _loaded = true;
@@ -61,7 +81,7 @@ namespace OldGamesLauncher
                     BtnSort.Content = "Last start date";
                     break;
             }
-            App.DataMan.OrderBy = _sort;
+            App.DataMan.OrderBy = (OrderKind)_sort;
         }
 
         private void Search()
@@ -71,8 +91,6 @@ namespace OldGamesLauncher
                            select i.PlatformName;
             App.DataMan.Search(TbSearch.Text, CbInvariant.IsChecked, selected.ToArray());
         }
-
-        public ICommand CheckedCommand { get; set; }
 
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -109,6 +127,15 @@ namespace OldGamesLauncher
             {
                 ErrorDialog.Show(ex);
             }
+        }
+
+        private void LbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LbView.SelectedItem != null)
+            {
+                SelectedItem = LbView.SelectedItem as Game;
+            }
+            IsItemSelected = LbView.SelectedItems.Count > 0;
         }
     }
 }

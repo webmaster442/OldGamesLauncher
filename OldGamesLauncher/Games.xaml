@@ -80,6 +80,7 @@
             applib:ListBoxSelector.Enabled="True"
             Style="{StaticResource ListboxGrid}"
             MouseDoubleClick="LbView_MouseDoubleClick"
+            SelectionChanged="LbView_SelectionChanged"
             Grid.Row="1"/>
         <Expander
             Grid.Row="2"

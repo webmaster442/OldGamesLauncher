@@ -9,6 +9,13 @@ using AppLib.WPF.Extensions;
 
 namespace OldGamesLauncher.DataFormat
 {
+    public enum OrderKind
+    {
+        Name = 0,
+        LastPlayed =2, 
+        PlayCount = 1
+    }
+
     public class DataManager
     {
         private readonly List<Game> Games;
@@ -112,7 +119,7 @@ namespace OldGamesLauncher.DataFormat
             }
         }
 
-        public int OrderBy
+        public OrderKind OrderBy
         {
             get;
             set;
@@ -162,13 +169,13 @@ namespace OldGamesLauncher.DataFormat
 
             switch (OrderBy)
             {
-                case 0:
+                case OrderKind.Name:
                     items.OrderBy(i => i.Name);
                     break;
-                case 1:
+                case OrderKind.PlayCount:
                     items.OrderBy(i => i.StartCount).ThenBy(i => i.Name);
                     break;
-                case 2:
+                case OrderKind.LastPlayed:
                     items.OrderBy(i => i.LastStartDate).ThenBy(i => i.Name);
                     break;
             }
@@ -205,12 +212,26 @@ namespace OldGamesLauncher.DataFormat
             private set;
         }
 
+        /// <summary>
+        /// Get emulator corresponding to game
+        /// </summary>
+        /// <param name="g">Game to get emulator for</param>
+        /// <returns>An emulator associated with the game</returns>
         public Emulator GetEmulator(Game g)
         {
             var q = from i in Emulators
                     where i.PlatformName == g.Platform
                     select i;
             return q.FirstOrDefault();
+        }
+
+        public void DeleteGamesWithoutEmulator()
+        {
+        }
+
+        public void DeleteSelection()
+        {
+
         }
     }
 }

@@ -23,7 +23,8 @@
                         <TextBlock Text="Games"/>
                     </StackPanel>
                 </TabItem.Header>
-                <local:Games/>
+                <local:Games
+                    x:Name="GamesBrowser"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
@@ -83,14 +84,17 @@
                 </MenuItem>
                 <Separator/>
                 <MenuItem
-                    
-                    Header="Delete selected">
+                    x:Name="GamesDeleteSelected"
+                    IsEnabled="{Binding ElementName=GamesBrowser, Path=IsItemSelected}"
+                    Header="Delete selected ...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_remove"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
                 <MenuItem
-                    Header="Delete games without an emulator">
+                    x:Name="GamesDeleteWithoutEmulator"
+                    Header="Delete games without an emulator ...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_remove"/>
                     </MenuItem.Icon>
@@ -101,15 +105,37 @@
                     <applib:ImageAwesome Icon="fa_internet_explorer"/>
                 </MenuItem.Icon>
                 <MenuItem
+                    IsEnabled="{Binding ElementName=GamesBrowser, Path=IsItemSelected}"
                     Header="Search game on Google...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_google"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
+                    IsEnabled="{Binding ElementName=GamesBrowser, Path=IsItemSelected}"
                     Header="Search game on DuckDuckGo...">
                     <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_search"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    IsEnabled="{Binding ElementName=GamesBrowser, Path=IsItemSelected}"
+                    Header="Search game cheats...">
+                    <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_globe"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem
+                    Header="Download Emulators ...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_download"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Header="Download Games ...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_gamepad"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
@@ -117,12 +143,6 @@
                     Header="Visit Project Page...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_github"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem
-                    Header="Download Emulators ...">
-                    <MenuItem.Icon>
-                        <applib:ImageAwesome Icon="fa_download"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
