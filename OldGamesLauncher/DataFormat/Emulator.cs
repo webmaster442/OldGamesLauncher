@@ -12,6 +12,7 @@ namespace OldGamesLauncher.DataFormat
         private string _path;
         private bool _checked;
 
+        [XmlAttribute]
         public string PlatformName
         {
             get { return _platform; }

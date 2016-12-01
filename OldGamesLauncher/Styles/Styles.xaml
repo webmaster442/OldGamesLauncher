@@ -263,7 +263,7 @@
                             FontSize="14"
                             TextWrapping="Wrap"
                             TextAlignment="Center"
-                            Text="{Binding Path, Converter={StaticResource FileNameConv}}"/>
+                            Text="{Binding Name}"/>
                     </Grid>
                 </DataTemplate>
             </Setter.Value>

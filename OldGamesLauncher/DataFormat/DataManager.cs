@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Xml.Serialization;
 using AppLib.WPF.Extensions;
+using System.Windows;
 
 namespace OldGamesLauncher.DataFormat
 {
@@ -119,6 +120,9 @@ namespace OldGamesLauncher.DataFormat
             }
         }
 
+        /// <summary>
+        /// Sets the ordering kind
+        /// </summary>
         public OrderKind OrderBy
         {
             get;
@@ -129,6 +133,7 @@ namespace OldGamesLauncher.DataFormat
         /// Searches a game in a collection
         /// </summary>
         /// <param name="name">Part of the game name to search for</param>
+        /// <param name="invariantcase">Sets the search case sensitiveness</param>
         /// <param name="PlatformFilter">filter platforms</param>
         public void Search(string name, bool? invariantcase, string[] PlatformFilter)
         {
@@ -170,13 +175,13 @@ namespace OldGamesLauncher.DataFormat
             switch (OrderBy)
             {
                 case OrderKind.Name:
-                    items.OrderBy(i => i.Name);
+                    items = items.OrderBy(i => i.Name);
                     break;
                 case OrderKind.PlayCount:
-                    items.OrderBy(i => i.StartCount).ThenBy(i => i.Name);
+                    items = items.OrderBy(i => i.StartCount).ThenBy(i => i.Name);
                     break;
                 case OrderKind.LastPlayed:
-                    items.OrderBy(i => i.LastStartDate).ThenBy(i => i.Name);
+                    items = items.OrderBy(i => i.LastStartDate).ThenBy(i => i.Name);
                     break;
             }
 
@@ -225,13 +230,42 @@ namespace OldGamesLauncher.DataFormat
             return q.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Deletes games without an emulator
+        /// </summary>
         public void DeleteGamesWithoutEmulator()
         {
+            var emulators = from i in Emulators
+                            select i.PlatformName;
+
+            var noemu = from i in Games
+                        where !emulators.Contains(i.Platform)
+                        select i;
+
+            var count = noemu.Count();
+            var msg = MessageBox.Show(string.Format("This will delete {0} games. Do you want to continue ?", count), "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (msg == MessageBoxResult.Yes)
+            {
+                foreach (var no in noemu) Games.Remove(no);
+                Modified = true;
+            }
         }
 
-        public void DeleteSelection()
+        /// <summary>
+        /// Deletes selection of games
+        /// </summary>
+        /// <param name="selection">selection</param>
+        public void DeleteSelection(IEnumerable<Game> selection)
         {
-
+            var msg = MessageBox.Show("Remove Selected games ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (msg == MessageBoxResult.Yes)
+            {
+                foreach (var item in selection)
+                {
+                    Games.Remove(item);
+                }
+                Search("", true, null);
+            }
         }
     }
 }

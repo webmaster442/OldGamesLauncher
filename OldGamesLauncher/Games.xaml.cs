@@ -2,6 +2,7 @@
 using OldGamesLauncher.DataFormat;
 using OldGamesLauncher.Styles;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +27,6 @@ namespace OldGamesLauncher
 
         public ICommand CheckedCommand { get; set; }
 
-        public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(Game), typeof(Games));
-
         public static readonly DependencyProperty IsItemSelectedProperty =
             DependencyProperty.Register("IsItemSelected", typeof(bool), typeof(Games), new PropertyMetadata(false));
 
@@ -40,8 +38,18 @@ namespace OldGamesLauncher
 
         public Game SelectedItem
         {
-            get { return (Game)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get { return LbView.SelectedItem as Game; }
+        }
+
+        public IEnumerable<Game> SelectedItems
+        {
+            get
+            {
+                foreach (var item in LbView.SelectedItems)
+                {
+                    yield return item as Game;
+                }
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -131,10 +139,6 @@ namespace OldGamesLauncher
 
         private void LbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (LbView.SelectedItem != null)
-            {
-                SelectedItem = LbView.SelectedItem as Game;
-            }
             IsItemSelected = LbView.SelectedItems.Count > 0;
         }
     }

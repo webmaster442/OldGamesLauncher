@@ -82,5 +82,72 @@ namespace OldGamesLauncher
             else App.DataMan.SaveOpenedFile();
             Settings.Default.Save();
         }
+
+        private void StartURL(string url, string param = null)
+        {
+            var tostart = url + param;
+            System.Diagnostics.Process.Start(tostart);
+        }
+
+        private void IntenetSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var s = (sender as MenuItem).Name;
+            var gamedata = string.Format("{0} {1}", 
+                                         GamesBrowser.SelectedItem.Name,
+                                         GamesBrowser.SelectedItem.Platform);
+            switch (s)
+            {
+                case "InternetGoogle":
+                    StartURL("https://www.google.hu/search?q=", gamedata);
+                    break;
+                case "InternetDuckDuck":
+                    StartURL("https://duckduckgo.com/?q=", gamedata);
+                    break;
+                case "InternetSearchCheat":
+                    StartURL("https://duckduckgo.com/?q=", gamedata + " cheats");
+                    break;
+            }
+
+        }
+
+        private void InternetDloadEmu_Click(object sender, RoutedEventArgs e)
+        {
+            StartURL("http://www.emuparadise.me/Emulators.php");
+        }
+
+        private void IntenetVisitProject_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GamesDeleteSelected_Click(object sender, RoutedEventArgs e)
+        {
+            App.DataMan.DeleteSelection(GamesBrowser.SelectedItems);
+        }
+
+        private void GamesDeleteWithoutEmulator_Click(object sender, RoutedEventArgs e)
+        {
+            App.DataMan.DeleteGamesWithoutEmulator();
+        }
+
+        private void ROMS_Click(object sender, RoutedEventArgs e)
+        {
+            var s = (sender as MenuItem).Header.ToString();
+            switch (s)
+            {
+                case "Emuparadise":
+                    StartURL("http://www.emuparadise.me/roms-isos-games.php");
+                    break;
+                case "Coolrom":
+                    StartURL("http://coolrom.com/");
+                    break;
+                case "Loveroms":
+                    StartURL("https://www.loveroms.com/");
+                    break;
+                case "FreeRoms":
+                    StartURL("http://www.freeroms.com/");
+                    break;
+            }
+        }
     }
 }

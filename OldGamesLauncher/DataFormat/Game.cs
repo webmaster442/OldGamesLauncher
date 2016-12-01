@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace OldGamesLauncher.DataFormat
 {
@@ -21,6 +22,7 @@ namespace OldGamesLauncher.DataFormat
         /// <summary>
         /// Game platform
         /// </summary>
+        [XmlAttribute]
         public string Platform
         {
             get;
@@ -52,6 +54,7 @@ namespace OldGamesLauncher.DataFormat
         /// <summary>
         /// Start counter
         /// </summary>
+        [XmlAttribute]
         public uint StartCount
         {
             get { return _startcount; }
