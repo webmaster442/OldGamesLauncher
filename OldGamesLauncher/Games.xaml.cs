@@ -3,6 +3,7 @@ using OldGamesLauncher.DataFormat;
 using OldGamesLauncher.Styles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace OldGamesLauncher
             InitializeComponent();
             PlatformFilter.DataContext = this;
             CheckedCommand = new RelayCommand(o => { Checked(o); }, o => true);
+            IsItemSelected = false;
         }
 
         public ICommand CheckedCommand { get; set; }
@@ -140,6 +142,26 @@ namespace OldGamesLauncher
         private void LbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IsItemSelected = LbView.SelectedItems.Count > 0;
+        }
+
+        private void ContextDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (LbView.SelectedItems.Count < 1) return;
+            App.DataMan.DeleteSelection(SelectedItems);
+        }
+
+        private void ContextOpenPath_Click(object sender, RoutedEventArgs e)
+        {
+            if (LbView.SelectedItems.Count < 1) return;
+            var folder = Path.GetDirectoryName(SelectedItem.Path);
+            System.Diagnostics.Process.Start(folder);
+        }
+
+        private void LbView_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            var enabled = LbView.SelectedItems.Count > 0;
+            ContextDelete.IsEnabled = enabled;
+            ContextOpenPath.IsEnabled = enabled;
         }
     }
 }

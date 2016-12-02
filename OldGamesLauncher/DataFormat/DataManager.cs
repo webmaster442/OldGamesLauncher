@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AppLib.WPF.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Xml.Serialization;
-using AppLib.WPF.Extensions;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace OldGamesLauncher.DataFormat
 {
@@ -196,6 +196,7 @@ namespace OldGamesLauncher.DataFormat
         {
             Games.Add(g);
             Modified = true;
+            Search("", true, null);
         }
 
         /// <summary>
@@ -206,6 +207,7 @@ namespace OldGamesLauncher.DataFormat
         {
             Games.AddRange(games);
             Modified = true;
+            Search("", true, null);
         }
 
         /// <summary>
@@ -239,7 +241,7 @@ namespace OldGamesLauncher.DataFormat
                             select i.PlatformName;
 
             var noemu = from i in Games
-                        where !emulators.Contains(i.Platform)
+                        where i.Platform != "Windows" && !emulators.Contains(i.Platform)
                         select i;
 
             var count = noemu.Count();

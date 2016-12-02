@@ -31,7 +31,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <RadioButton
+                    <CheckBox
                         Content="{Binding PlatformName}"
                         IsChecked="{Binding IsChecked}"
                         Margin="1"/>

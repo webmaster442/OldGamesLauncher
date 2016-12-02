@@ -1,20 +1,23 @@
-﻿<Window x:Class="OldGamesLauncher.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OldGamesLauncher"
-        xmlns:dialogs="clr-namespace:OldGamesLauncher.Dialogs"
-        xmlns:applib="http://github.com/webmaster442/AppLib/WPF"
-        mc:Ignorable="d"
-        Title="Old Games Launcher"
-        Loaded="Window_Loaded"
-        Closing="Window_Closing"
-        Height="480"
-        Width="850">
+﻿<applib:CoolWindow 
+    x:Class="OldGamesLauncher.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:OldGamesLauncher"
+    xmlns:dialogs="clr-namespace:OldGamesLauncher.Dialogs"
+    xmlns:applib="http://github.com/webmaster442/AppLib/WPF"
+    mc:Ignorable="d"
+    Title="Old Games Launcher"
+    Loaded="Window_Loaded"
+    Closing="Window_Closing"
+    Height="480"
+    Icon="Styles/Icon.png"
+    Width="850">
     <Grid>
         <applib:AnimatedTabControl
             Grid.Row="1"
+            x:Name="MainTabs"
             TabStripPlacement="Top">
             <TabItem>
                 <TabItem.Header>
@@ -80,6 +83,14 @@
                     Header="Add Games...">
                     <MenuItem.Icon>
                         <applib:ImageAwesome Icon="fa_plus"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    x:Name="GamesAddWindows"
+                    Click="GamesAddWindows_Click"
+                    Header="Add Windows Games...">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_windows"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
@@ -187,9 +198,35 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem
+                x:Name="MenuExtras"
+                SubmenuOpened="MenuExtras_SubmenuOpened"
+                Header="Extras">
+                <MenuItem.Icon>
+                    <applib:ImageAwesome Icon="fa_tasks"/>
+                </MenuItem.Icon>
+                <MenuItem
+                    x:Name="ExtraExplorerStop"
+                    Click="ExtraExplorerStop_Click"
+                    Header="Stop Windows Explorer">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_stop"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    x:Name="ExtraExplorerStart"
+                    Click="ExtraExplorerStart_Click"
+                    Header="Start Windows Explorer">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_play"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <dialogs:DialogPresenter
             Margin="40"
-            x:Name="DialogContainer"/>
+            x:Name="DialogContainer"
+            MaxWidth="480"
+            MaxHeight="270"/>
     </Grid>
-</Window>
+</applib:CoolWindow>

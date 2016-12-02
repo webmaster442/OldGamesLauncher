@@ -1,4 +1,5 @@
-﻿using AppLib.WPF.Extensions;
+﻿using AppLib.WPF.Controls.FontAwesome;
+using AppLib.WPF.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -50,13 +51,17 @@ namespace OldGamesLauncher.Styles
             if (string.IsNullOrEmpty(str)) return null;
 
             string tbtext = "";
-            var words = str.Split(' ');
-            if (words.Length > 2)
-                tbtext = string.Format("{0}{1}{2}", words[0][0], words[1][0], words[2][0]);
-            else if (words.Length > 1)
-                tbtext = string.Format("{0}{1}", words[0][0], words[1][0]);
-            else
-                tbtext = words[0].Length > 2 ? words[0].Substring(0, 3) : words[0].Substring(0, words[0].Length);
+
+            if (str != "Windows")
+            {
+                var words = str.Split(' ');
+                if (words.Length > 2)
+                    tbtext = string.Format("{0}{1}{2}", words[0][0], words[1][0], words[2][0]);
+                else if (words.Length > 1)
+                    tbtext = string.Format("{0}{1}", words[0][0], words[1][0]);
+                else
+                    tbtext = words[0].Length > 2 ? words[0].Substring(0, 3) : words[0].Substring(0, words[0].Length);
+            }
 
             if (_cache.ContainsKey(tbtext))
             {
@@ -64,21 +69,28 @@ namespace OldGamesLauncher.Styles
             }
             else
             {
-                Border b = new Border();
-                b.Width = size;
-                b.Height = size;
-                TextBlock t = new TextBlock();
-                t.FontWeight = FontWeights.Bold;
-                Viewbox strecher = new Viewbox();
-                strecher.Child = t;
-                b.Child = strecher;
-                t.Text = tbtext.ToUpper();
-                var index = Math.Abs(tbtext.ToUpper().GetHashCode()) % _colors.Length;
-                b.Background = new SolidColorBrush(_colors[index]);
-                t.Foreground = new SolidColorBrush(Colors.White);
-                var img = b.Render();
-                _cache.Add(tbtext, img);
-                return img;
+                if (str == "Windows")
+                {
+                    return ImageAwesome.CreateImageSource(FaIcons.fa_windows, new SolidColorBrush(Colors.White));
+                }
+                else
+                {
+                    Border b = new Border();
+                    b.Width = size;
+                    b.Height = size;
+                    TextBlock t = new TextBlock();
+                    t.FontWeight = FontWeights.Bold;
+                    Viewbox strecher = new Viewbox();
+                    strecher.Child = t;
+                    b.Child = strecher;
+                    t.Text = tbtext.ToUpper();
+                    var index = Math.Abs(tbtext.ToUpper().GetHashCode()) % _colors.Length;
+                    b.Background = new SolidColorBrush(_colors[index]);
+                    t.Foreground = new SolidColorBrush(Colors.White);
+                    var img = b.Render();
+                    _cache.Add(tbtext, img);
+                    return img;
+                }
             }
         }
 

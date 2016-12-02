@@ -9,7 +9,7 @@ namespace OldGamesLauncher
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : AppLib.WPF.Controls.CoolWindow
     {
         public MainWindow()
         {
@@ -53,12 +53,29 @@ namespace OldGamesLauncher
 
         private void GamesAdd_Click(object sender, RoutedEventArgs e)
         {
+            if (App.DataMan.Emulators.Count < 1)
+            {
+                MessageBox.Show("No emulators are set. Please setup at least one emulator to add games", "No Emulators", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Dispatcher.Invoke(() => { MainTabs.SelectedIndex = 1; });
+                return;
+            }
             var add = new Dialogs.AddGame();
             add.OkAction = new System.Action(() =>
             {
                 App.DataMan.AddGames(add.Items);
             });
             OpenDialog(add, "Add games...");
+        }
+
+        private void GamesAddWindows_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Windows Executable | *.exe";
+            ofd.Multiselect = false;
+            if (ofd.ShowDialog() == true)
+            {
+                App.DataMan.AddGame(new DataFormat.Game(ofd.FileName, "Windows"));
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -148,6 +165,22 @@ namespace OldGamesLauncher
                     StartURL("http://www.freeroms.com/");
                     break;
             }
+        }
+
+        private void MenuExtras_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            ExtraExplorerStart.IsEnabled = !ExplorerManager.IsRunning;
+            ExtraExplorerStop.IsEnabled = ExplorerManager.IsRunning;
+        }
+
+        private void ExtraExplorerStop_Click(object sender, RoutedEventArgs e)
+        {
+            ExplorerManager.Kill();
+        }
+
+        private void ExtraExplorerStart_Click(object sender, RoutedEventArgs e)
+        {
+            ExplorerManager.Start();
         }
     }
 }

@@ -53,21 +53,31 @@ namespace OldGamesLauncher.DataFormat
 
         public void RunGame(Game g)
         {
-            Process p = new Process();
-
-            if (string.IsNullOrEmpty(Path))
-                throw new Exception("Platform emulator path not set");
-
-            p.StartInfo.FileName = Path;
-            if (!string.IsNullOrEmpty(g.Path))
+            if (g.Platform == "Windows")
             {
-                if (!System.IO.File.Exists(g.Path))
-                    throw new Exception("Rom file doesn't exist");
-                p.StartInfo.Arguments = g.Path;
+                Process p = new Process();
+                p.StartInfo.FileName = g.Path;
+                p.Start();
             }
-            g.LastStartDate = DateTime.Now;
-            g.StartCount += 1;
-            p.Start();
+            else
+            {
+
+                Process p = new Process();
+
+                if (string.IsNullOrEmpty(Path))
+                    throw new Exception("Platform emulator path not set");
+
+                p.StartInfo.FileName = Path;
+                if (!string.IsNullOrEmpty(g.Path))
+                {
+                    if (!System.IO.File.Exists(g.Path))
+                        throw new Exception("Rom file doesn't exist");
+                    p.StartInfo.Arguments = g.Path;
+                }
+                g.LastStartDate = DateTime.Now;
+                g.StartCount += 1;
+                p.Start();
+            }
         }
     }
 }

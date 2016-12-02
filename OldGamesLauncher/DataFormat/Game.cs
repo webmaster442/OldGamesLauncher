@@ -65,11 +65,37 @@ namespace OldGamesLauncher.DataFormat
             }
         }
 
+        public Game()
+        {
+            LastStartDate = DateTime.MinValue;
+            StartCount = 0;
+            Name = "";
+            Path = "";
+            Platform = "";
+        }
+
+        public Game(string path, string platform)
+        {
+            LastStartDate = DateTime.MinValue;
+            StartCount = 0;
+            Name = GetName(path);
+            Path = path;
+            Platform = platform;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Notify(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        private string GetName(string file)
+        {
+            var name = System.IO.Path.GetFileName(file);
+            var ext = System.IO.Path.GetExtension(file);
+            name = name.Replace(ext, "");
+            return name;
         }
     }
 }

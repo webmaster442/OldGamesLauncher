@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300"
              d:DesignWidth="500"
+             x:Name="games"
              Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -81,10 +82,32 @@
             Style="{StaticResource ListboxGrid}"
             MouseDoubleClick="LbView_MouseDoubleClick"
             SelectionChanged="LbView_SelectionChanged"
-            Grid.Row="1"/>
+            ContextMenuOpening="LbView_ContextMenuOpening"
+            Grid.Row="1">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        x:Name="ContextDelete"
+                        Click="ContextDelete_Click"
+                        Header="Delete ...">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_remove"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="ContextOpenPath"
+                        Click="ContextOpenPath_Click"
+                        Header="Open Path ...">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_folder_o"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
         <Expander
             Grid.Row="2"
-            Grid.ColumnSpan="6"
+            Grid.ColumnSpan="8"
             ExpandDirection="Up"
             IsExpanded="False">
             <Expander.Header>
