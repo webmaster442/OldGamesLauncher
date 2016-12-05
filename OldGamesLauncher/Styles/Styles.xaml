@@ -65,6 +65,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -75,9 +76,9 @@
                         </Grid.ColumnDefinitions>
                         <Image
                             Source="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
-                            Grid.RowSpan="2"
-                            Width="48"
-                            Height="48"
+                            Grid.RowSpan="3"
+                            Width="54"
+                            Height="54"
                             Grid.Column="0"/>
                         <TextBlock
                             Grid.Row="0"
@@ -101,7 +102,7 @@
                             Filter="Executable formats|*.exe;*.cmd;*.bat"
                             SelectedFile="{Binding Path, Mode=TwoWay}"/>
                         <Button
-                            Grid.RowSpan="2"
+                            Grid.RowSpan="3"
                             ToolTip="Delete"
                             x:Name="BtnDelete"
                             Margin="2"
@@ -114,7 +115,7 @@
                                 Height="24"/>
                         </Button>
                         <Button
-                            Grid.RowSpan="2"
+                            Grid.RowSpan="3"
                             ToolTip="Run Emulator"
                             Margin="2"
                             CommandParameter="{Binding}" 
@@ -125,6 +126,14 @@
                                 Width="24"
                                 Height="24"/>
                         </Button>
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="Arguments:"/>
+                        <TextBox
+                            Grid.Row="3"
+                            Text="{Binding Arguments, Mode=TwoWay}"
+                            Grid.Column="2"/>
                     </Grid>
                 </DataTemplate>
             </Setter.Value>

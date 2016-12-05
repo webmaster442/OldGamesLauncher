@@ -152,9 +152,16 @@ namespace OldGamesLauncher
 
         private void ContextOpenPath_Click(object sender, RoutedEventArgs e)
         {
-            if (LbView.SelectedItems.Count < 1) return;
-            var folder = Path.GetDirectoryName(SelectedItem.Path);
-            System.Diagnostics.Process.Start(folder);
+            try
+            {
+                if (LbView.SelectedItems.Count < 1) return;
+                var folder = Path.GetDirectoryName(SelectedItem.Path);
+                System.Diagnostics.Process.Start(folder);
+            }
+            catch (Exception ex)
+            {
+                ErrorDialog.Show(ex);
+            }
         }
 
         private void LbView_ContextMenuOpening(object sender, ContextMenuEventArgs e)
