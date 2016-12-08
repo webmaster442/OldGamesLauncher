@@ -32,6 +32,15 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
+                        <applib:ImageAwesome Icon="fa_files_o" Width="24" Height="24"/>
+                        <TextBlock Text="File Explorer"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <applib:FileExplorer/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
                         <applib:ImageAwesome Icon="fa_cogs" Width="24" Height="24"/>
                         <TextBlock Text="Emulators"/>
                     </StackPanel>
