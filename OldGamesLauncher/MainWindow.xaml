@@ -36,7 +36,9 @@
                         <TextBlock Text="File Explorer"/>
                     </StackPanel>
                 </TabItem.Header>
-                <applib:FileExplorer/>
+                <applib:FileExplorer
+                    x:Name="FileExplorer"
+                    MouseDoubleClick="FileExplorer_MouseDoubleClick"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

@@ -286,4 +286,27 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ItemsControl" x:Key="EmuStarter">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <applib:ImageButton
+                        Image="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
+                        ImageWidth="48"
+                        ImageHeight="48"
+                        Margin="5"
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.StartCommand}"
+                        Content="{Binding PlatformName}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <applib:VirtualizingWrapPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

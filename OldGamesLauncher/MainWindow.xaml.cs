@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using OldGamesLauncher.Dialogs;
 using OldGamesLauncher.Properties;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace OldGamesLauncher
 {
@@ -14,6 +16,12 @@ namespace OldGamesLauncher
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void FileExplorer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var rundlg = new StartWithDialog();
+            OpenDialog(rundlg, "Open with...");
         }
 
         public void OpenDialog(UserControl ctrl, string title)
