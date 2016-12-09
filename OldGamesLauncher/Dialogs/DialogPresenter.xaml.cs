@@ -8,7 +8,7 @@ namespace OldGamesLauncher.Dialogs
     /// <summary>
     /// Interaction logic for DialogPresenter.xaml
     /// </summary>
-    public partial class DialogPresenter : UserControl
+    public partial class DialogPresenter : UserControl, IDialogHost
     {
         public DialogPresenter()
         {
@@ -23,6 +23,9 @@ namespace OldGamesLauncher.Dialogs
 
         public static readonly DependencyProperty DialogContentProperty =
             DependencyProperty.Register("DialogContent", typeof(FrameworkElement), typeof(DialogPresenter));
+
+        public static readonly DependencyProperty DialogControlsVisibilityProperty =
+            DependencyProperty.Register("DialogControlsVisibility", typeof(Visibility), typeof(DialogPresenter), new PropertyMetadata(Visibility.Visible));
 
         public string Title
         {
@@ -42,6 +45,12 @@ namespace OldGamesLauncher.Dialogs
             set { SetValue(DialogContentProperty, value); }
         }
 
+        public Visibility DialogControlsVisibility
+        {
+            get { return (Visibility)GetValue(DialogControlsVisibilityProperty); }
+            set { SetValue(DialogControlsVisibilityProperty, value); }
+        }
+
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -52,8 +61,7 @@ namespace OldGamesLauncher.Dialogs
             var dialog = DialogContent as IDialog;
             if (dialog != null)
             {
-                if (dialog.OkAction != null)
-                    dialog.OkAction();
+                dialog.OkAction?.Invoke();
             } 
             Close();
         }
@@ -78,8 +86,14 @@ namespace OldGamesLauncher.Dialogs
         }
     }
 
+    public interface IDialogHost
+    {
+        void Close();
+    }
+
     public interface IDialog
     {
         Action OkAction { get; set; }
+        IDialogHost Host { get; }
     }
 }

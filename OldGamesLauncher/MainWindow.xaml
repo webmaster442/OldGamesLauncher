@@ -38,7 +38,7 @@
                 </TabItem.Header>
                 <applib:FileExplorer
                     x:Name="FileExplorer"
-                    MouseDoubleClick="FileExplorer_MouseDoubleClick"/>
+                    FileDoubleClick="FileExplorer_FileDoubleClick"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

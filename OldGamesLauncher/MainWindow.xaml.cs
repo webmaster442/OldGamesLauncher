@@ -1,10 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using AppLib.WPF.Controls;
+using Microsoft.Win32;
 using OldGamesLauncher.Dialogs;
 using OldGamesLauncher.Properties;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace OldGamesLauncher
 {
@@ -18,15 +18,17 @@ namespace OldGamesLauncher
             InitializeComponent();
         }
 
-        private void FileExplorer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void FileExplorer_FileDoubleClick(object sender, FileEventArgs e)
         {
-            var rundlg = new StartWithDialog();
-            OpenDialog(rundlg, "Open with...");
+            var rundlg = new StartWithDialog(DialogContainer);
+            rundlg.FileName = e.Filename;
+            OpenDialog(rundlg, "Open with...", false);
         }
 
-        public void OpenDialog(UserControl ctrl, string title)
+        public void OpenDialog(UserControl ctrl, string title, bool controlsvisible = true)
         {
             DialogContainer.DialogContent = ctrl;
+            DialogContainer.DialogControlsVisibility = controlsvisible ? Visibility.Visible : Visibility.Collapsed;
             DialogContainer.Title = title;
             DialogContainer.Open();
         }
@@ -67,7 +69,7 @@ namespace OldGamesLauncher
                 Dispatcher.Invoke(() => { MainTabs.SelectedIndex = 1; });
                 return;
             }
-            var add = new Dialogs.AddGame();
+            var add = new AddGame(DialogContainer);
             add.OkAction = new System.Action(() =>
             {
                 App.DataMan.AddGames(add.Items);

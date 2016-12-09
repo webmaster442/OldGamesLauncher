@@ -13,11 +13,13 @@ namespace OldGamesLauncher.Dialogs
     /// </summary>
     public partial class AddGame : UserControl, IDialog
     {
+        private IDialogHost _host;
         private string[] _selected;
 
-        public AddGame()
+        public AddGame(IDialogHost host)
         {
             InitializeComponent();
+            _host = host;
             App.DataMan.UnSelectPlatforms();
             PlatformSelector.ItemsSource = App.DataMan.Emulators;
         }
@@ -59,6 +61,11 @@ namespace OldGamesLauncher.Dialogs
         {
             get;
             set;
+        }
+
+        public IDialogHost Host
+        {
+            get { return _host; }
         }
     }
 }

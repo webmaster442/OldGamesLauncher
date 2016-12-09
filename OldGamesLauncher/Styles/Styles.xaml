@@ -290,13 +290,20 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <applib:ImageButton
-                        Image="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
-                        ImageWidth="48"
-                        ImageHeight="48"
+                    <Button
+                        MinWidth="120"
                         Margin="5"
-                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.StartCommand}"
-                        Content="{Binding PlatformName}"/>
+                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ItemsControl}}, Path=DataContext.StartCommand}">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Image
+                                Source="{Binding PlatformName, Converter={StaticResource PlatformIconConv}}"
+                                Width="64"
+                                Height="64"
+                                Margin="10,0"/>
+                            <TextBlock Text="{Binding PlatformName}"/>
+                        </StackPanel>
+                    </Button>
                 </DataTemplate>
             </Setter.Value>
         </Setter>

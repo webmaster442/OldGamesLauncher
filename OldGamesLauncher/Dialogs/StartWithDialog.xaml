@@ -19,16 +19,20 @@
         <applib:FaImageButton
             Grid.Column="0"
             Grid.Row="0"
+            x:Name="BtnWinShell"
             Content="Windows shell"
             Icon="fa_windows"
             IconSize="48"
+            Click="BtnWinShell_Click"
             Margin="5"/>
         <applib:FaImageButton
             Grid.Row="0"
             Grid.Column="1"
             Content="Cancel"
+            x:Name="BtnCancel"
             IconSize="48"
             Icon="fa_close"
+            Click="BtnCancel_Click"
             Margin="5"/>
         <TextBlock
             Text="Emulators:"
