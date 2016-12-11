@@ -11,7 +11,7 @@ namespace OldGamesLauncher
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : AppLib.WPF.Controls.CoolWindow
+    public partial class MainWindow : CoolWindow
     {
         public MainWindow()
         {
@@ -191,6 +191,41 @@ namespace OldGamesLauncher
         private void ExtraExplorerStart_Click(object sender, RoutedEventArgs e)
         {
             ExplorerManager.Start();
+        }
+
+        private void WinCDSetupDload_Click(object sender, RoutedEventArgs e)
+        {
+            StartURL("http://wincdemu.sysprogs.org/portable/");
+        }
+
+        private void WinCDSetupPath_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.SetupPath();
+        }
+
+        private void WinCDSetupDriverInstall_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.Command(WinCDEmuCommands.DriverInstall);
+        }
+
+        private void WinCDSetupDriverUninstall_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.Command(WinCDEmuCommands.DriverUninstall);
+        }
+
+        private void WinCDStart_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.Command(WinCDEmuCommands.None);
+        }
+
+        private void WinCDMountImage_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.MountImage();
+        }
+
+        private void WinCDUnmountImages_Click(object sender, RoutedEventArgs e)
+        {
+            WinCDEmuManager.Command(WinCDEmuCommands.UnmountImages);
         }
     }
 }

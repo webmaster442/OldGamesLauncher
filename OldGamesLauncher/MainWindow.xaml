@@ -233,6 +233,77 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem
+                Header="WinCD Emu Portable...">
+                <MenuItem.Icon>
+                    <applib:ImageAwesome Icon="fa_circle_o"/>
+                </MenuItem.Icon>
+                <MenuItem
+                    Header="Setup">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_cog"/>
+                    </MenuItem.Icon>
+                    <MenuItem
+                        Header="Download WinCD Emu portable..."
+                        x:Name="WinCDSetupDload"
+                        Click="WinCDSetupDload_Click">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_globe"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Header="Set WinCD Emu portable path..."
+                        x:Name="WinCDSetupPath"
+                        Click="WinCDSetupPath_Click">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_cog"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem
+                        Header="Install Driver..."
+                        x:Name="WinCDSetupDriverInstall"
+                        Click="WinCDSetupDriverInstall_Click">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_plus"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Header="Uninstall Driver..."
+                        x:Name="WinCDSetupDriverUninstall"
+                        Click="WinCDSetupDriverUninstall_Click">
+                        <MenuItem.Icon>
+                            <applib:ImageAwesome Icon="fa_remove"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <Separator/>
+                <MenuItem 
+                    Header="Start WinCD Emu"
+                    x:Name="WinCDStart"
+                    Click="WinCDStart_Click">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_play"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem
+                    Header="Mount Image..."
+                    x:Name="WinCDMountImage"
+                    Click="WinCDMountImage_Click">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_plus_square"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem
+                    Header="Unmount all imges"
+                    x:Name="WinCDUnmountImages"
+                    Click="WinCDUnmountImages_Click">
+                    <MenuItem.Icon>
+                        <applib:ImageAwesome Icon="fa_minus_square"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <dialogs:DialogPresenter
             Margin="40"

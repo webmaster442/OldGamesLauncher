@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Styles\PlatformIconConverter.cs" />
     <Compile Include="Styles\RelayCommand.cs" />
+    <Compile Include="WinCDEmuManager.cs" />
     <Page Include="Dialogs\AddGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

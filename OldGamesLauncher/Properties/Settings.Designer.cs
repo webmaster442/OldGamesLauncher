@@ -34,5 +34,17 @@ namespace OldGamesLauncher.Properties {
                 this["LastFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string WinCDEmuPath {
+            get {
+                return ((string)(this["WinCDEmuPath"]));
+            }
+            set {
+                this["WinCDEmuPath"] = value;
+            }
+        }
     }
 }
